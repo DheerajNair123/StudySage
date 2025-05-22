@@ -1,36 +1,63 @@
-# StudySage
+# 📚 StudySage - Offline AI Study Assistant
 
-> An intelligent study companion designed to enhance your learning experience
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/DheerajNair123/StudySage.svg)](https://github.com/DheerajNair123/StudySage/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/DheerajNair123/StudySage.svg)](https://github.com/DheerajNair123/StudySage/network)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/streamlit-1.28+-red.svg)](https://streamlit.io/)
 
-## Overview
+> An intelligent offline AI study assistant that helps you interact with your study materials using local language models
 
-StudySage is a comprehensive study management platform that helps students organize their learning materials, track progress, and optimize their study sessions. Whether you're preparing for exams, managing coursework, or pursuing self-directed learning, StudySage provides the tools you need to succeed.
+## 🎯 Overview
 
-## Features
+StudySage is a powerful offline AI study assistant that allows students to upload PDF documents (notes, chapters, textbooks) and ask questions about the content. Built with privacy in mind, it runs entirely offline using local language models, ensuring your study materials never leave your device.
 
-- **Smart Study Planning**: Create personalized study schedules based on your goals and availability
-- **Progress Tracking**: Monitor your learning progress with detailed analytics and insights
-- **Resource Management**: Organize notes, documents, and study materials in one place
-- **Interactive Learning**: Engage with interactive quizzes and flashcards
-- **Goal Setting**: Set and track academic goals with milestone tracking
-- **Study Statistics**: Comprehensive analytics to understand your study patterns
+The application uses advanced natural language processing to understand your documents and provide accurate, contextual answers to help enhance your learning experience.
 
-## Technologies Used
+## ✨ Features
 
-- **Frontend**: [Technology stack - please specify]
-- **Backend**: [Technology stack - please specify]
-- **Database**: [Database technology - please specify]
-- **Authentication**: [Auth system - please specify]
-- **Additional Libraries**: [List key dependencies]
+- **📄 PDF Document Processing**: Upload and extract text from PDF files
+- **🤖 Offline AI Chat**: Ask questions about your uploaded materials using Llama3 model
+- **🔍 Intelligent Search**: Advanced vector-based document retrieval for accurate answers
+- **🖥️ User-Friendly Interface**: Clean Streamlit web interface
+- **🔒 Privacy-First**: Completely offline - your documents never leave your device
+- **⚡ Fast Responses**: Optimized vector search for quick question answering
 
-## Installation
+## 🛠️ Technologies Used
 
-### Prerequisites
+- **Frontend**: Streamlit (Web Interface)
+- **Backend**: Python
+- **Language Model**: Ollama (Llama3)
+- **Document Processing**: PyMuPDF (fitz)
+- **Vector Database**: FAISS
+- **Embeddings**: HuggingFace Sentence Transformers (all-MiniLM-L6-v2)
+- **Framework**: LangChain (RAG Implementation)
 
-- [List prerequisites like Node.js, Python, etc.]
-- [Any specific version requirements]
+## 📋 Prerequisites
 
-### Quick Start
+Before installing StudySage, ensure you have:
+
+- **Python 3.8+** installed on your system
+- **Ollama** installed and running
+- **Llama3 model** downloaded via Ollama
+
+### Installing Ollama and Llama3
+
+1. **Install Ollama**:
+   - Visit [Ollama's official website](https://ollama.com/) and follow installation instructions for your OS
+   - Or use: `curl -fsSL https://ollama.com/install.sh | sh` (Linux/macOS)
+
+2. **Download Llama3 model**:
+   ```bash
+   ollama pull llama3
+   ```
+
+3. **Verify installation**:
+   ```bash
+   ollama list
+   ```
+
+## 🚀 Installation
 
 1. **Clone the repository**
    ```bash
@@ -38,110 +65,163 @@ StudySage is a comprehensive study management platform that helps students organ
    cd StudySage
    ```
 
-2. **Install dependencies**
+2. **Create a virtual environment** (recommended)
    ```bash
-   # Add specific installation commands
-   npm install
-   # or
+   python -m venv studysage_env
+   source studysage_env/bin/activate  # On Windows: studysage_env\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables**
+4. **Create required directories**
    ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
+   mkdir -p data/uploaded_docs
    ```
 
-4. **Run the application**
+5. **Start Ollama service** (if not already running)
    ```bash
-   # Add specific run commands
-   npm start
-   # or
-   python app.py
+   ollama serve
    ```
 
-5. **Access the application**
-   Open your browser and navigate to `http://localhost:3000` (or specified port)
+## 🎮 Usage
 
-## Usage
+1. **Start the application**
+   ```bash
+   streamlit run main.py
+   ```
 
-### Getting Started
+2. **Access the web interface**
+   - Open your browser and go to `http://localhost:8501`
 
-1. **Create an Account**: Sign up with your email or use social authentication
-2. **Set Up Your Profile**: Add your study preferences and goals
-3. **Create Study Plans**: Use the planning tool to organize your study schedule
-4. **Track Progress**: Monitor your learning journey with built-in analytics
+3. **Upload and Query**
+   - Upload a PDF file using the file uploader
+   - Type your question in the text input box
+   - Get AI-powered answers based on your document content
 
-### Key Features Guide
+### Example Workflow
 
-#### Study Planning
-- Create custom study schedules
-- Set reminders and notifications
-- Organize subjects and topics
+1. Upload a PDF textbook chapter or study notes
+2. Ask questions like:
+   - "What is the main concept explained in this chapter?"
+   - "Summarize the key points about photosynthesis"
+   - "What are the different types of algorithms mentioned?"
+3. Receive contextual answers extracted from your uploaded material
 
-#### Progress Tracking
-- View detailed study statistics
-- Track time spent on different subjects
-- Monitor goal completion rates
+## 📁 Project Structure
 
-#### Resource Management
-- Upload and organize study materials
-- Create digital flashcards
-- Take and sync notes across devices
+```
+StudySage/
+├── main.py                 # Main Streamlit application
+├── document_parser.py      # PDF text extraction utilities
+├── vector_store.py         # FAISS vector store implementation
+├── chat_engine.py          # RAG chain setup with Ollama
+├── requirements.txt        # Python dependencies
+├── data/
+│   └── uploaded_docs/      # Directory for uploaded PDF files
+├── README.md
+└── LICENSE
+```
 
-## API Documentation
+## 🔧 Configuration
 
-[If applicable - include API endpoints and usage examples]
+The application uses the following default configurations:
 
-## Contributing
+- **Language Model**: Llama3 via Ollama
+- **Embedding Model**: sentence-transformers/all-MiniLM-L6-v2
+- **Vector Store**: FAISS (CPU version)
+- **Retrieval Method**: RetrievalQA with similarity search
 
-We welcome contributions to StudySage! Please follow these steps:
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+We welcome contributions to StudySage! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Make your changes and test them**
+4. **Commit your changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+5. **Push to the branch**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+6. **Open a Pull Request**
 
 ### Development Guidelines
 
-- Follow the existing code style and conventions
-- Write clear commit messages
-- Add tests for new features
+- Follow PEP 8 style guidelines
+- Add docstrings to functions
+- Test your changes thoroughly
 - Update documentation as needed
 
-## License
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Ollama not found error**
+- Ensure Ollama is installed and running: `ollama serve`
+- Verify Llama3 model is downloaded: `ollama list`
+
+**PDF upload issues**
+- Ensure the `data/uploaded_docs/` directory exists
+- Check file permissions for the upload directory
+
+**Slow responses**
+- Consider using a smaller embedding model
+- Ensure sufficient RAM for the language model
+
+## 📊 Performance Notes
+
+- **Memory Usage**: Requires ~4-8GB RAM depending on document size
+- **Response Time**: 2-10 seconds per query (varies by hardware)
+- **Supported Formats**: Currently PDF only
+- **File Size Limit**: Recommended <50MB per PDF
+
+## 🗺️ Roadmap
+
+- [ ] Support for additional file formats (DOCX, TXT, EPUB)
+- [ ] Multiple document chat capability
+- [ ] Conversation history and context retention
+- [ ] Custom model selection interface
+- [ ] Document summarization features
+- [ ] Export chat conversations
+- [ ] Mobile-responsive interface improvements
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## 👨‍💻 Author
 
-**Dheeraj Nair** - [Your Email] - [Your LinkedIn/Twitter]
+**Dheeraj Nair**
+- GitHub: [@DheerajNair123](https://github.com/DheerajNair123)
+- Project Link: [StudySage](https://github.com/DheerajNair123/StudySage)
 
-Project Link: [https://github.com/DheerajNair123/StudySage](https://github.com/DheerajNair123/StudySage)
+## 🙏 Acknowledgments
 
-## Acknowledgments
+- **Ollama** for providing local language model capabilities
+- **LangChain** for the RAG implementation framework
+- **Streamlit** for the intuitive web interface
+- **HuggingFace** for the embedding models
+- **PyMuPDF** for PDF processing capabilities
 
-- Thanks to all contributors who have helped shape StudySage
-- Special recognition for libraries and tools that made this project possible
-- Inspiration from the educational technology community
-
-## Roadmap
-
-- [ ] Mobile application development
-- [ ] Advanced AI-powered study recommendations
-- [ ] Collaborative study features
-- [ ] Integration with popular learning platforms
-- [ ] Offline study mode
-
-## Support
+## 📞 Support
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/DheerajNair123/StudySage/issues) page
-2. Create a new issue if your problem isn't already reported
-3. Reach out via email for urgent matters
+1. Check the [Issues](https://github.com/DheerajNair123/StudySage/issues) page for existing solutions
+2. Create a new issue with detailed information about your problem
+3. Include your Python version, OS, and error messages when reporting bugs
 
 ---
 
-**Made with ❤️ for students worldwide**
+**Happy Studying! 📚✨**
+
+*StudySage - Making offline AI-powered learning accessible to everyone*
